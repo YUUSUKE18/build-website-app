@@ -7,9 +7,9 @@ function App() {
     tasks: ["A", "B", "C"],
   };
   return (
-    <div className="App">
+    <div className="App container">
       <Header TodoItems={state.tasks.length} />
-      <TodoLists />
+      <TodoLists tasks={state.tasks} />
     </div>
   );
 }
