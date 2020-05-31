@@ -1,11 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Header from "./components/Header";
+import TodoLists from "./components/TodoLists";
 
 function App() {
+  const state = {
+    tasks: ["A", "B", "C"],
+  };
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <Header TodoItems={state.tasks.length} />
+      <TodoLists />
     </div>
   );
 }
