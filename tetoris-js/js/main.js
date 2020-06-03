@@ -1,129 +1,154 @@
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.querySelector(".grid");
+  let squares = Array.from(document.querySelectorAll(".grid div"));
+  const ScoreDisplay = document.querySelector("#score");
+  const StartBtn = document.querySelector("#button");
   const width = 10;
-  const height = 20;
+
+  const lTetoris = [
+    [1, width + 1, width * 2 + 1, 2],
+    [width, width + 1, width + 2, width * 2 + 2],
+    [1, width + 1, width * 2 + 1, width * 2 + 2],
+    [width, width * 2, width * 2 + 1, width * 2 + 2],
+  ];
+
+  const zTetoris = [
+    [0, width, width + 1, width + 2],
+    [width + 1, width + 2, width * 2, width * 2 + 1],
+    [0, width, width + 1, width * 2 + 1],
+    [width + 1, width + 2, width * 2, width * 2 + 1],
+  ];
+
+  const tTetoris = [
+    [1, width, width + 1, width + 2],
+    [1, width + 1, width + 2, width * 2 + 1],
+    [width, width + 1, width + 2, width * 2 + 1],
+    [1, width, width + 1, width * 2 + 1],
+  ];
+
+  const oTetoris = [
+    [0, 1, width, width + 1],
+    [0, 1, width, width + 1],
+    [0, 1, width, width + 1],
+    [0, 1, width, width + 1],
+  ];
+
+  const iTetoris = [
+    [1, width + 1, width * 2 + 1, width * 3 + 1],
+    [width, width + 1, width + 2, width + 3],
+    [1, width + 1, width * 2 + 1, width * 3 + 1],
+    [width, width + 1, width + 2, width + 2],
+  ];
+
+  const alltetoris = [lTetoris, zTetoris, tTetoris, oTetoris, iTetoris];
+
   let currentPosition = 4;
-
-  let squares = Array.from(grid);
-
-  function control(e) {
-    if (e.KeyCode === 39) {
-      moveRight();
-    } else if (e.KeyCode === 38) {
-      rotate();
-    } else if (e.KeyCode === 37) {
-      moveLeft();
-    } else if (e.KeyCode === 40) {
-      moveLeft();
-    }
-  }
-
-  document.addEventListener("keyup", control);
-
-  const ltetoris = [
-    [1, width + 1, width * 2 + 1, 2],
-    [width, width + 1, width + 2, width * 2 + 1],
-    [width, width + 1, width + 2, width * 2 + 1],
-    [1, width + 1, width * 2 + 1, width * 2],
-  ];
-
-  const ztetoris = [
-    [1, width + 1, width * 2 + 1, 2],
-    [width, width + 1, width + 2, width * 2 + 1],
-    [width, width + 1, width + 2, width * 2 + 1],
-    [1, width + 1, width * 2 + 1, width * 2],
-  ];
-
-  const ttetoris = [
-    [1, width + 1, width * 2 + 1, 2],
-    [width, width + 1, width + 2, width * 2 + 1],
-    [width, width + 1, width + 2, width * 2 + 1],
-    [1, width + 1, width * 2 + 1, width * 2],
-  ];
-
-  const otetoris = [
-    [1, width + 1, width * 2 + 1, 2],
-    [width, width + 1, width + 2, width * 2 + 1],
-    [width, width + 1, width + 2, width * 2 + 1],
-    [1, width + 1, width * 2 + 1, width * 2],
-  ];
-
-  const itetoris = [
-    [1, width + 1, width * 2 + 1, 2],
-    [width, width + 1, width + 2, width * 2 + 1],
-    [width, width + 1, width + 2, width * 2 + 1],
-    [1, width + 1, width * 2 + 1, width * 2],
-  ];
-
-  const alltetoris = [ltetoris, ztetoris, ttetoris, otetoris, itetoris];
-
-  let random = Math.floor(Math.random() * alltetoris.length);
   let currentRotation = 0;
+  let random = Math.floor(Math.random() * alltetoris.length);
   let current = alltetoris[random][currentRotation];
 
-  //draw shape
   function draw() {
     current.forEach((index) => {
-      squares[currentPosition + index].classList.add("block");
+      squares[currentPosition + index].classList.add("tetoris");
     });
   }
 
-  //undraw shape
-  function undraw() {
+  function draw() {
     current.forEach((index) => {
-      squares[currentPosition + index].classList.remove("block");
+      squares[currentPosition + index].classList.remove("tetoris");
     });
   }
+  //   const height = 20;
+  //
 
-  //move and down
-  function moveDown() {
-    undraw();
-    currentPosition = currentPosition += width;
-    draw();
-    freeze();
-  }
+  //   let squares = Array.from(grid);
 
-  function moveRight() {
-    undraw();
-    const isRightEdge = current.some((index) => {
-      (currentPosition + index) % width === width - 1;
-    });
-    if (!isRightEdge) currentPosition += 1;
-    if (
-      current.some((index) =>
-        squares[currentPosition + index].classList.contains("block2")
-      )
-    ) {
-      currentPosition -= 1;
-    }
-    draw();
-  }
+  //   function control(e) {
+  //     if (e.KeyCode === 39) {
+  //       moveRight();
+  //     } else if (e.KeyCode === 38) {
+  //       rotate();
+  //     } else if (e.KeyCode === 37) {
+  //       moveLeft();
+  //     } else if (e.KeyCode === 40) {
+  //       moveLeft();
+  //     }
+  //   }
 
-  function moveLeft() {
-    undraw();
-    const isLeftEdge = current.some((index) => {
-      (currentPosition + index) % width === 0;
-    });
-    if (!isLeftEdge) currentPosition -= 1;
-    if (
-      current.some((index) =>
-        squares[currentPosition + index].classList.contains("block2")
-      )
-    ) {
-      currentPosition += 1;
-    }
-    draw();
-  }
+  //   document.addEventListener("keyup", control);
 
-  function rotate() {
-    undraw();
-    currentRotation++;
-    if (currentRotation === current.length) {
-      currentRotation = 0;
-    }
-    current = theTetrominoes[random][currentRotation];
-    draw();
-  }
+  //
 
-  draw();
+  //
+  //
+
+  //   let random = Math.floor(Math.random() * alltetoris.length);
+  //   let currentRotation = 0;
+  //   let current = alltetoris[random][currentRotation];
+
+  //   //draw shape
+  //   function draw() {
+  //     current.forEach((index) => {
+  //       squares[currentPosition + index].classList.add("block");
+  //     });
+  //   }
+
+  //   //undraw shape
+  //   function undraw() {
+  //     current.forEach((index) => {
+  //       squares[currentPosition + index].classList.remove("block");
+  //     });
+  //   }
+
+  //   //move and down
+  //   function moveDown() {
+  //     undraw();
+  //     currentPosition = currentPosition += width;
+  //     draw();
+  //     freeze();
+  //   }
+
+  //   function moveRight() {
+  //     undraw();
+  //     const isRightEdge = current.some((index) => {
+  //       (currentPosition + index) % width === width - 1;
+  //     });
+  //     if (!isRightEdge) currentPosition += 1;
+  //     if (
+  //       current.some((index) =>
+  //         squares[currentPosition + index].classList.contains("block2")
+  //       )
+  //     ) {
+  //       currentPosition -= 1;
+  //     }
+  //     draw();
+  //   }
+
+  //   function moveLeft() {
+  //     undraw();
+  //     const isLeftEdge = current.some((index) => {
+  //       (currentPosition + index) % width === 0;
+  //     });
+  //     if (!isLeftEdge) currentPosition -= 1;
+  //     if (
+  //       current.some((index) =>
+  //         squares[currentPosition + index].classList.contains("block2")
+  //       )
+  //     ) {
+  //       currentPosition += 1;
+  //     }
+  //     draw();
+  //   }
+
+  //   function rotate() {
+  //     undraw();
+  //     currentRotation++;
+  //     if (currentRotation === current.length) {
+  //       currentRotation = 0;
+  //     }
+  //     current = theTetrominoes[random][currentRotation];
+  //     draw();
+  //   }
+
+  //   draw();
 });
