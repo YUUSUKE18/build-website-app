@@ -53,10 +53,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function draw() {
+  function undraw() {
     current.forEach((index) => {
       squares[currentPosition + index].classList.remove("tetoris");
     });
+  }
+
+  timerId = setInterval(moveDown, 1000);
+
+  function moveDown() {
+    undraw();
+    currentPosition += width;
+    draw();
+    freeze();
+  }
+
+  function freeze() {
+    if (
+      current.some((index) =>
+        squares[currentPosition + index + width].classList.contains("take")
+      )
+    ) {
+      current.forEach((index) =>
+        squares[currentPosition + index].classList.add("take")
+      );
+      random = Math.floor(Math.random() * alltetoris.length);
+      current = alltetoris[random][currentRotation];
+      currentPosition = 4;
+      draw();
+    }
   }
   //   const height = 20;
   //
