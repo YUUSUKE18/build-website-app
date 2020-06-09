@@ -66,8 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.keyCode === 37) {
       moveLeft();
     } else if (e.keyCode === 38) {
-      moveRight();
+      rotate();
     } else if (e.keyCode === 39) {
+      moveRight();
     } else if (e.keyCode === 40) {
       moveDown();
     }
@@ -133,6 +134,16 @@ document.addEventListener("DOMContentLoaded", () => {
       currentPosition -= 1;
     }
 
+    draw();
+  }
+
+  function rotate() {
+    undraw();
+    currentRotation++;
+    if (currentRotation === current.length) {
+      currentRotation = 0;
+    }
+    current = alltetoris[random][currentRotation];
     draw();
   }
 
