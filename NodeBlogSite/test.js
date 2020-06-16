@@ -1,3 +1,8 @@
-const name = "Taro";
+global.setTimeout(() => {
+  console.log("OMG");
+  clearInterval(int);
+}, 2000);
 
-console.log(name);
+const int = setInterval(() => {
+  console.log("Interval");
+}, 1000);
