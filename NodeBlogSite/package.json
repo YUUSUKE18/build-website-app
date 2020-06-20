@@ -1,0 +1,17 @@
+{
+  "name": "nodeblog",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
