@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+    <main>
+      <form action="" method="post">
+        <label for="title" id="title">Title</label>
+        <input type="text" id="title" required />
+        <label for="content">Content</label>
+        <textarea
+          name="content"
+          id="content"
+          cols="30"
+          rows="10"
+          required
+        ></textarea>
+        <button>Submit</button>
+      </form>
+    </main>
+    <%- include('./partials/footer.ejs') %>
+  </body>
+</html>
