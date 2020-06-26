@@ -7,8 +7,10 @@
       <div class="blogs content">
         <h2>Blog List</h2>
         <% if (blogs.length > 0) { %> <% blogs.forEach(blog => { %>
-        <h3 class="blog-title"><%= blog.title %></h3>
-        <p class="blog-date"><%= blog.date %></p>
+        <a class="detail" href="/blogs/<%= blog._id %>">
+          <h3 class="blog-title"><%= blog.title %></h3>
+          <p class="blog-date"><%= blog.date %></p>
+        </a>
         <% }) %> <% } %>
       </div>
     </main>

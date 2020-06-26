@@ -15,6 +15,7 @@ app.set("view engine", "ejs");
 
 //middlewear & static
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
 // app.get("/add-posts", (req, res) => {
@@ -67,6 +68,30 @@ app.get("/blogs", (req, res) => {
     .sort({ createdAt: -1 })
     .then((result) => {
       res.render("index", { title: "All Posts", blogs: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get("/blogs/:id", (req, res) => {
+  const id = req.params.id;
+
+  Post.findById(id)
+    .then((result) => {
+      res.render("details", { blog: result, title: "Details" });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.post("/blogs", (req, res) => {
+  const post = new Post(req.body);
+  post
+    .save()
+    .then((result) => {
+      res.redirect("/blogs");
     })
     .catch((err) => {
       console.log(err);
