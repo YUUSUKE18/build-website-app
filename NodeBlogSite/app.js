@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const app = express();
-const Post = require("./models/post");
+const BlogRoutes = require("./routes/BlogRoutes");
 
 const dbURI =
   "mongodb+srv://yuusuke:test1234@node--blog-uonsy.mongodb.net/note-posts?retryWrites=true&w=majority";
@@ -63,44 +63,7 @@ app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
 });
 
-app.get("/blogs", (req, res) => {
-  Post.find()
-    .sort({ createdAt: -1 })
-    .then((result) => {
-      res.render("index", { title: "All Posts", blogs: result });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.get("/blogs/:id", (req, res) => {
-  const id = req.params.id;
-
-  Post.findById(id)
-    .then((result) => {
-      res.render("details", { blog: result, title: "Details" });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.post("/blogs", (req, res) => {
-  const post = new Post(req.body);
-  post
-    .save()
-    .then((result) => {
-      res.redirect("/blogs");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.get("/create/blog", (req, res) => {
-  res.render("create", { title: "Post Blog" });
-});
+app.use("/blogs", BlogRoutes);
 
 app.use((req, res) => {
   res.status(404).render("404", { title: "404" });
