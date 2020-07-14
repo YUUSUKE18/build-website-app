@@ -6,12 +6,12 @@
     <title>Document</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="text-gray-600 font-body">
+  <body class="text-gray-600 font-body bg-gray-600">
     <div>
       <nav>
         <div>
-          <h1 class="font-bold uppercase p-4">
-            <a href="/">TailWind Food Recipes </a>
+          <h1 class="font-bold uppercase p-4 text-center sm:text-left">
+            <a href="/" class="text-green-500">TailWind Food Recipes </a>
           </h1>
         </div>
         <ul>
@@ -29,7 +29,7 @@
     </div>
 
     <main class="px-16 py-6">
-      <div class="flex justify-end">
+      <div class="flex justify-center sm:justify-end">
         <a href="#" class="text-primary">Login</a>
         <a href="#" class="text-secondary-100 ml-2">Signup</a>
       </div>
@@ -43,11 +43,15 @@
         </h4>
         <div>
           <!-- card area -->
-          <div class="mt-8">
-            <img src="" alt="" />
-            <div>
-              <span>Pasta</span>
-              <span>Pas King</span>
+          <div class="mt-8 bg-gray-100 rounded-md shadow-md w-auto">
+            <img
+              src="./images/pasta.jpg"
+              alt="pasta"
+              class="w-full h-32 object-cover"
+            />
+            <div class="py-4 pl-3">
+              <span class="font-bold">Pasta</span>
+              <span class="block text-gray-500 text-sm">Pas King</span>
             </div>
           </div>
         </div>
