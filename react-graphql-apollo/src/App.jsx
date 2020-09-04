@@ -6,7 +6,7 @@ import "./App.css";
 
 function App() {
   const client = new ApolloClient({
-    url: "http://localhost:3000",
+    uri: "http://localhost:3000",
   });
   return (
     <ApolloProvider client={client}>
